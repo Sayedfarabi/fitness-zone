@@ -1,0 +1,6 @@
+.info-section-bg {
+    width: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%), url(./bg-image//contact_about_open_bg.png);
+    background-position: center;
+    background-size: cover;
+}
