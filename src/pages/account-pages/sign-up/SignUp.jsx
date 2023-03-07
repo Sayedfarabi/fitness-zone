@@ -1,14 +1,62 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loading from '../../../component/loading/Loading';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const SignUp = () => {
-
+    const { createUser, updateUserProfile, loading } = useContext(AuthContext);
+    const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const [error, setError] = useState();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const imageBbApiKey = process.env.REACT_APP_image_bb_api_key;
+    const imageBbApi = `https://api.imgbb.com/1/upload?key=${imageBbApiKey}`;
 
     const submitHandler = data => {
-        console.log(data);
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image)
+
+        fetch(imageBbApi, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                const imageUrl = result?.data?.url;
+                data.image = imageUrl;
+                const { image, name, email, password, userRole } = data;
+                const userInfo = {
+                    displayName: name,
+                    photoURL: image
+                }
+                createUser(email, password)
+                    .then(result => {
+                        setError("")
+                        toast.success("user create successfully")
+                        updateUserProfile(userInfo)
+                            .then(result => {
+                                setError("")
+                                navigate(from)
+
+                            })
+                            .then(error => {
+                                setError(error?.message)
+
+                            })
+
+                    })
+                    .then(error => {
+                        setError(error?.message)
+                    })
+            })
+    }
+
+    if (loading) {
+        return <Loading></Loading>
     }
     return (
         <div className="hero bg-base-200 py-16">

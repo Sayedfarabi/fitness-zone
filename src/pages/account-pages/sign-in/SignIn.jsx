@@ -1,13 +1,43 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loading from '../../../component/loading/Loading';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const SignIn = () => {
+    const { signInWithGoogle, loading, signIn } = useContext(AuthContext);
     const [error, setError] = useState();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const submitHandler = data => {
-        console.log(data);
+        const { email, password } = data;
+        signIn(email, password)
+            .then(result => {
+                setError("")
+                navigate(from)
+                toast.success(" user sign in successfully")
+            })
+            .then(error => {
+                setError(error?.message)
+            })
+    }
+    const googleHandler = () => {
+        signInWithGoogle()
+            .then(result => {
+                setError("")
+                navigate(from)
+                console.log(result);
+            })
+            .catch(err => {
+                setError(err?.message)
+            })
+    }
+    if (loading) {
+        return <Loading></Loading>
     }
     return (
         <div className="hero py-20 bg-base-200">
@@ -46,7 +76,7 @@ const SignIn = () => {
                         </div>
                         <div className="divider">OR</div>
                         <div className="grid h-full py-4 card rounded-box place-items-center ">
-                            <button className='btn btn-sm btn-outline border-black hover:bg-red-500 hover:text-white my-2'>sign in with google</button>
+                            <button onClick={googleHandler} className='btn btn-sm btn-outline border-black hover:bg-red-500 hover:text-white my-2'>sign in with google</button>
                         </div>
 
                     </div>

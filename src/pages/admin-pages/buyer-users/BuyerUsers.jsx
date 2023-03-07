@@ -4,7 +4,7 @@ import UserCard from '../../../component/user-card/UserCard';
 const BuyerUsers = () => {
     return (
         <section>
-            <div className="overflow-x-auto py-4">
+            <div className="overflow-x-auto py-4 ">
                 <table className=" table w-full">
 
                     <thead className='text-center text-md md:text-lg font-semibold'>

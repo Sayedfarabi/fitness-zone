@@ -9,7 +9,7 @@ const Root = () => {
             <section>
                 <Navbar></Navbar>
             </section>
-            <section className='min-h-[80vh] bg-slate-400'>
+            <section className='min-h-[80vh] bg-slate-200'>
                 <Outlet></Outlet>
             </section>
             <Footer></Footer>

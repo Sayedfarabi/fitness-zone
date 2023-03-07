@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
 import Banner from './banner/Banner';
 import ContactUs from './contact-us/ContactUs';
 import DiscountSection from './discount-products/DiscountSection';
@@ -10,6 +11,7 @@ import Testimonials from './testimonial/Testimonials';
 
 
 const Home = () => {
+
     return (
         <section>
             <section>

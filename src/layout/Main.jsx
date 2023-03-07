@@ -23,7 +23,7 @@ const Main = () => {
                         <AdminSidebar></AdminSidebar>
                     </div>
                 </div>
-                <div className='border-2 border-green-500 w-full '>
+                <div className='border-2 bg-white w-full '>
                     <Outlet></Outlet>
                 </div>
             </div>

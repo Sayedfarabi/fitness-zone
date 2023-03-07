@@ -10,7 +10,7 @@ const AddAdmin = () => {
 
     return (
         <section>
-            <div className='bg-base-100 mx-auto my-20'>
+            <div className='bg-base-100 min-h-screen mx-auto py-20'>
                 <div>
                     <h1 className='text-3xl  text-center underline my-8 '> Make a new Admin</h1>
                 </div>
