@@ -122,9 +122,9 @@ const ProductsSection = () => {
         },
     ]
     return (
-        <div className='py-12 mx-12'>
+        <div className='py-12 md:pb-24 mx-12'>
             <div className='mb-12'>
-                <div className='text-center'>
+                <div className='text-center text-white'>
                     <h3 className='text-2xl md:text-4xl font-bold'><em>Our Products</em></h3>
                     <p className='text-xl text-gray-600 font-semibold'>-----X-----</p>
                 </div>
