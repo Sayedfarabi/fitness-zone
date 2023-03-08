@@ -1,12 +1,46 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 const AddCategory = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState()
 
+    const imageBbApiKey = process.env.REACT_APP_image_bb_api_key;
+    const imageBbApi = `https://api.imgbb.com/1/upload?key=${imageBbApiKey}`;
+
     const submitHandler = data => {
-        console.log(data);
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image)
+        fetch(imageBbApi, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                const imageUrl = result?.data?.url;
+                data.image = imageUrl;
+                console.log(data);
+                fetch("http://localhost:5000/addCategory", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result?.success) {
+                            toast.success(result?.message)
+
+                        } else {
+                            setError(result?.message)
+                            toast.error(result?.message)
+                        }
+                    })
+            })
     }
 
     return (
@@ -21,7 +55,7 @@ const AddCategory = () => {
                     </div>
                     <form onSubmit={handleSubmit(submitHandler)} className="card-body">
                         <div className="form-control my-2">
-                            <input {...register("title", { required: "Service title is must be required" })} type="text" name='title' placeholder="Category title..." className="input input-bordered" />
+                            <input {...register("title", { required: "Category title is must be required" })} type="text" name='title' placeholder="Category title..." className="input input-bordered" />
                             {
                                 errors?.title &&
                                 <p className='text-red-500'>{errors?.title?.message}</p>
@@ -29,7 +63,7 @@ const AddCategory = () => {
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='h-full w-full'>
-                                <textarea {...register("body", { required: "Service description is must be required" })} name="body" className=" textarea h-full w-full textarea-bordered" placeholder="Category Description..."></textarea>
+                                <textarea {...register("body", { required: "Category description is must be required" })} name="body" className=" textarea h-full w-full textarea-bordered" placeholder="Category Description..."></textarea>
                                 {
                                     errors?.body &&
                                     <p className='text-red-500'>{errors?.body?.message}</p>
@@ -39,9 +73,9 @@ const AddCategory = () => {
 
                                 <div className="form-control my-2">
                                     <label className="label">
-                                        <span className="label-text text-gray-500">Select Service Photo :</span>
+                                        <span className="label-text text-gray-500">Select Category Photo :</span>
                                     </label>
-                                    <input {...register("image", { required: "Service photo is must be required" })} type="file" name='image' className="input" />
+                                    <input {...register("image", { required: "Category photo is must be required" })} type="file" name='image' className="input" />
                                     {
                                         errors?.image &&
                                         <p className='text-red-500'>{errors?.image?.message}</p>

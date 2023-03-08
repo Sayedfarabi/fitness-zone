@@ -33,6 +33,16 @@ const SignUp = () => {
                     displayName: name,
                     photoURL: image
                 }
+                const userData = {
+                    name,
+                    email,
+                    image,
+                    userRole,
+                    verified: false
+                }
+                const userEmail = {
+                    email: email
+                }
                 createUser(email, password)
                     .then(result => {
                         setError("")
@@ -41,13 +51,43 @@ const SignUp = () => {
                             .then(result => {
                                 setError("")
                                 navigate(from)
+                                fetch("http://localhost:5000/addUser", {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify(userData)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data?.success) {
+                                            fetch("http://localhost:5000/getToken", {
+                                                method: "POST",
+                                                headers: {
+                                                    "content-type": "application/json"
+                                                },
+                                                body: JSON.stringify(userEmail)
+                                            })
+                                                .then(res => res.json())
+                                                .then(data => {
+                                                    if (data?.success) {
+                                                        const token = data?.token;
+                                                        localStorage.setItem("fitnessZone", token)
+                                                    } else {
+                                                        console.log(data);
+                                                        toast.error(data?.message)
+                                                    }
+                                                })
+                                        } else {
+                                            toast.error(data?.message)
+                                        }
+                                    })
 
                             })
                             .then(error => {
                                 setError(error?.message)
 
                             })
-
                     })
                     .then(error => {
                         setError(error?.message)

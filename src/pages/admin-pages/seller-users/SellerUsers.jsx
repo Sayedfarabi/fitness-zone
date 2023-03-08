@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserCard from '../../../component/user-card/UserCard';
+import { DatabaseContext } from '../../../layout/Root';
 
 const SellerUsers = () => {
+    const { users } = useContext(DatabaseContext)
+    const sellerUsers = users.filter(user => user?.userRole === "seller");
     return (
         <section>
             <div className="overflow-x-auto py-4">
@@ -21,12 +24,16 @@ const SellerUsers = () => {
 
                     <tbody className='text-center'>
 
-                        <UserCard></UserCard>
-                        <UserCard></UserCard>
-                        <UserCard></UserCard>
-                        <UserCard></UserCard>
-                        <UserCard></UserCard>
-                        <UserCard></UserCard>
+                        {
+                            sellerUsers &&
+                            sellerUsers.map(user => {
+                                return <UserCard
+                                    key={user?._id}
+                                    user={user}>
+                                </UserCard>
+                            })
+                        }
+
 
                     </tbody>
                 </table>

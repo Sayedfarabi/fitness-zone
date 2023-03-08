@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DatabaseContext } from '../../layout/Root';
+import ProductCard from '../home/product-slides/product-card/ProductCard';
 
 const WelcomePage = () => {
+    const { products } = useContext(DatabaseContext);
+
     return (
-        <div>
-            <h1 className='text-3xl text-center my-12'>Welcome to Fitness Zone Website</h1>
-        </div>
+        <section>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 py-6 md:py-8'>
+                {
+                    products &&
+                    products.map(product => {
+                        return <ProductCard
+                            key={product?._id}
+                            product={product}
+                        >
+                        </ProductCard>
+                    })
+                }
+            </div>
+        </section>
     );
 };
 

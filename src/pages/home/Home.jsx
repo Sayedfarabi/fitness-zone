@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthProvider';
+import React from 'react';
 import Banner from './banner/Banner';
 import ContactUs from './contact-us/ContactUs';
 import DiscountSection from './discount-products/DiscountSection';

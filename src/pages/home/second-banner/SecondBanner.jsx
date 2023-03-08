@@ -6,9 +6,12 @@ import banner2 from "../../../assets/second-banner/banner2.png";
 const SecondBanner = () => {
     return (
 
-        <div className='m-12'>
+        <div className='py-12 mx-auto'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
-                <div className='relative col-span-2 mx-auto mb-6 hover:border-2 hover:border-white'>
+                <div className='relative  md:col-span-2 mx-auto mb-6'
+                    data-aos="fade-right"
+                    data-aos-duration="2000"
+                >
                     <Link to={"/"}>
                         <div className=' w-full'>
                             <div className=' w-full'>
@@ -27,7 +30,10 @@ const SecondBanner = () => {
                         </div>
                     </Link>
                 </div>
-                <div className='relative col-span-1 mx-auto hover:border-2 hover:border-white'>
+                <div className='relative  md:col-span-1 mx-auto w-full'
+                    data-aos="fade-up"
+                    data-aos-duration="2000"
+                >
                     <Link to={"/"}>
                         <div className='w-full '>
                             <div className='w-full'>

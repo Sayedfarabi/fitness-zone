@@ -4,22 +4,23 @@ import { useLocation } from 'react-router-dom';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { MdPayments, MdPostAdd } from 'react-icons/md';
 
-const ProductRow = ({ product }) => {
+const ProductRow = ({ product, position }) => {
     const location = useLocation()
     const pathname = location.pathname;
-    // console.log(pathname);
+    const serial = position + 1;
+
     return (
         <tr className='hover text-sm md:text-md'>
             <td>
                 <div>
-                    <p>1</p>
+                    <p>{serial}</p>
                 </div>
             </td>
             <td>
                 <div>
                     <div className="avatar">
                         <div className="w-6 md:w-8 rounded-full ring ring-blue-300 ring-offset-base-100 ring-offset-2">
-                            <img src="https://rukminim1.flixcart.com/image/612/612/kvifekw0/ab-exerciser/y/6/9/portable-abdominal-double-wheel-gym-for-exercise-fitness-original-imag8ehkxq7ftans.jpeg?q=70" alt="" />
+                            <img src={product?.image} alt="" />
                         </div>
                     </div>
                 </div>
@@ -27,13 +28,13 @@ const ProductRow = ({ product }) => {
 
             <td >
                 <div>
-                    <p>Dumbbell</p>
+                    <p>{product?.productName}</p>
                 </div>
             </td>
 
             <td className=''>
                 <div className='text-yellow-600'>
-                    <p>available</p>
+                    <p>{product?.inStock}</p>
                 </div>
             </td>
 

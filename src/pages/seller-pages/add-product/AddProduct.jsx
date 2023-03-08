@@ -1,13 +1,62 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
+import { DatabaseContext } from '../../../layout/Root';
 
 const AddProduct = () => {
-    const categories = [];
+    const { categories } = useContext(DatabaseContext)
+    const { user } = useContext(AuthContext);
     const [error, setError] = useState()
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const imageBbApiKey = process.env.REACT_APP_image_bb_api_key;
+    const imageBbApi = `https://api.imgbb.com/1/upload?key=${imageBbApiKey}`;
+    const navigate = useNavigate()
 
     const submitHandler = data => {
-        console.log(data);
+        const date = new Date()
+        const postedTime = date.getTime();
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image)
+
+        fetch(imageBbApi, {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json())
+            .then(result => {
+                const imageUrl = result?.data?.url;
+                data.image = imageUrl;
+                data.postedTime = postedTime;
+                data.inStock = "available";
+                data.reported = false;
+                data.sellerName = user?.displayName;
+                data.sellerEmail = user?.email
+
+                // console.log(data);
+
+                fetch("http://localhost:5000/addProduct", {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data)
+                        if (data?.success) {
+                            navigate("/pages/product-list")
+                            toast.success(data.message);
+                        } else {
+                            toast.error(data.message)
+                        }
+                    })
+
+
+            })
     }
     return (
         <div className="hero  bg-base-200 h-full py-20">
@@ -24,15 +73,15 @@ const AddProduct = () => {
                             <p className='my-2 label-text font-bold'>01. Select Product Category :</p>
                             <div className='input input-bordered text-center'>
                                 <label htmlFor="category"></label>
-                                <select {...register("categoryName", { required: "product category is required" })} className='w-full'>
+                                <select {...register("categoryId", { required: "product category is required" })} name="categoryId" className='w-full h-full border-none'>
                                     <option value="" >Select one</option>
                                     {
                                         categories &&
                                         categories.map(category => <option
-                                            key={category._id}
-                                            value={category?.categoryName}
+                                            key={category?._id}
+                                            value={category?._id}
                                         >
-                                            {category?.categoryName}</option>)
+                                            {category?.title}</option>)
                                     }
                                 </select>
                             </div>
@@ -43,7 +92,7 @@ const AddProduct = () => {
                             <p className='my-2 label-text font-bold'>02. Select Product Condition :</p>
                             <div className='input input-bordered text-center'>
                                 <label htmlFor="condition"></label>
-                                <select {...register("condition", { required: true })} id="condition" name="condition" className='w-full'>
+                                <select {...register("condition", { required: true })} id="condition" name="condition" className='w-full h-full'>
                                     <option value="">Select one</option>
                                     <option value="Excellent">Excellent</option>
                                     <option value="Good">Good</option>

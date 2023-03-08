@@ -38,7 +38,10 @@ const InfoSection = () => {
     ]
     return (
         <section className=''>
-            <div className='info-section-bg min-h-[60vh] flex justify-center items-center'>
+            <div className='info-section-bg min-h-[60vh] flex justify-center items-center'
+                data-aos="flip-left"
+                data-aos-duration="1000"
+            >
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-3 my-6 md:my-0'>
                     {
                         infoCardData &&

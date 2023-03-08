@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BiCartDownload } from 'react-icons/bi';
 import { GiEternalLove } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../../context/AuthProvider';
 
 const ProductCard = ({ product }) => {
+    const { user } = useContext(AuthContext)
     return (
 
 
-        <div className="group relative item-center justify-center overflow-hidden cursor-default hover:shadow-xl hover:shadow-black/30 trans transition-shadow">
+        <div className="group relative item-center justify-center overflow-hidden cursor-default hover:shadow-xl hover:shadow-black/30 trans transition-shadow mx-auto">
             <div className="h-96 w-72">
                 <img className='h-full w-full object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform duration-500' src={product?.image} alt="Product" />
             </div>
@@ -25,7 +28,7 @@ const ProductCard = ({ product }) => {
             <div className="absolute inset-0 flex flex-col items-center justify-center px-9 text-center translate-y-[70%] md:translate-y-[70%] group-hover:translate-y-0 transition-all">
 
                 <div>
-                    <h1 className='text-3xl font-bold text-white mb-8'>{product?.title}</h1>
+                    <h1 className='text-2xl font-bold text-white mb-12'>{product?.productName}</h1>
                 </div>
                 <div>
                     <p className='text-lg italic text-white mb-3 opacity-100 transition-opacity duration-300'>
@@ -36,14 +39,23 @@ const ProductCard = ({ product }) => {
                     <p className='text-lg italic text-white mb-3 opacity-100 transition-opacity duration-300 font-bold'>
                         Price : $
                         <span className='text-amber-500'>
-                            {product?.price}
+                            {product?.resalePrice}
                         </span>
                     </p>
                 </div>
                 <div className='mt-12'>
 
-                    <button className=' btn btn-sm bg-red-500 hover:bg-orange-400 text-2xl capitalize text-white mx-4'><GiEternalLove></GiEternalLove></button>
-                    <button className=' btn btn-sm bg-red-500 hover:bg-orange-400  text-2xl capitalize text-white  mx-4'><BiCartDownload></BiCartDownload></button>
+                    {
+                        user?.uid &&
+                        <div className='w-full'>
+                            <button className=' btn btn-sm bg-yellow-500 hover:bg-red-500 text-2xl capitalize text-black hover:text-white mx-4'><GiEternalLove></GiEternalLove></button>
+
+                            <button className=' btn btn-sm bg-lime-400 hover:bg-red-500  text-2xl capitalize text-black hover:text-white  mx-4'><BiCartDownload></BiCartDownload></button>
+                        </div>
+                    }
+                    <Link to={`/pages/product/${product?._id}`}>
+                        <button className=' btn btn-sm bg-fuchsia-500 hover:bg-red-500  text-sm capitalize text-white w-full mt-4'>Read More</button>
+                    </Link>
 
 
                 </div>

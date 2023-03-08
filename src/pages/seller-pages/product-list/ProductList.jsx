@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ProductRow from '../../../component/product-row/ProductRow';
+import { AuthContext } from '../../../context/AuthProvider';
+import { DatabaseContext } from '../../../layout/Root';
 
 const ProductList = () => {
+    const { products } = useContext(DatabaseContext);
+    const { user } = useContext(AuthContext)
+    const sellerProducts = products?.filter(product => product?.sellerEmail === user?.email);
+    // console.log(sellerProducts);
     return (
         <section>
             <section>
@@ -21,13 +27,17 @@ const ProductList = () => {
                         </thead>
 
                         <tbody className='text-center'>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
+                            {
+                                sellerProducts &&
+                                sellerProducts.map(product => {
+                                    return <ProductRow
+                                        key={product?._id}
+                                        product={product}
+                                        position={sellerProducts?.indexOf(product)}
+                                    >
+                                    </ProductRow>
+                                })
+                            }
 
 
                         </tbody>

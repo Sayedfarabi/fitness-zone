@@ -7,7 +7,10 @@ const DiscountSection = () => {
     return (
         <div className='p-12'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                <div className="card w-full bg-base-100 shadow-xl mx-auto">
+                <div className="card w-full bg-base-100 shadow-xl mx-auto"
+                    data-aos="fade-right"
+                    data-aos-duration="1500"
+                >
                     <Link to={"/"}>
                         <div className='hover:border-2 hover:border-white'>
                             <div className="card-body h-52 w-full bg-red-500 text-white">
@@ -22,7 +25,11 @@ const DiscountSection = () => {
                         </div>
                     </Link>
                 </div>
-                <div className="card w-full bg-base-100 shadow-xl mx-auto ">
+                <div className="card w-full bg-base-100 shadow-xl mx-auto"
+                    data-aos="fade-left"
+
+                    data-aos-duration="1500"
+                >
 
                     <Link to={"/"}>
                         <div className='hover:border-2 hover:border-white'>

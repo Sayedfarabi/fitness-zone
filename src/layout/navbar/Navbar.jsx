@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user);
+    // console.log(user);
     const fakeUserImage = "https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg";
 
     const signOutHandler = () => {
@@ -34,8 +34,8 @@ const Navbar = () => {
                             <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/contact-us"}>CONTACT US</Link></li>
                         </ul>
                     </div>
-                    <Link to={"/"} className="hidden md:inline-block normal-case text-xl p-2 border-2 border-white text-white bg-black font-semibold">
-                        <em >Fitness<span className='text-red-600'>Zone</span></em>
+                    <Link to={"/"} className="hidden md:inline-block normal-case text-xl p-2  text-white  font-semibold">
+                        <em >Fitness<span className='text-black'>Zone</span></em>
                     </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">

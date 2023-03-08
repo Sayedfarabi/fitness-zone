@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdVerifiedUser, MdDeleteForever } from 'react-icons/md';
 
-const UserCard = () => {
+const UserCard = ({ user }) => {
     return (
         <tr className='hover text-sm md:text-md'>
             <td>
@@ -13,7 +13,7 @@ const UserCard = () => {
                 <div>
                     <div className="avatar">
                         <div className="w-6 md:w-8 rounded-full ring ring-blue-300 ring-offset-base-100 ring-offset-2">
-                            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60" alt="" />
+                            <img src={user?.image} alt="" />
                         </div>
                     </div>
                 </div>
@@ -21,13 +21,13 @@ const UserCard = () => {
 
             <td >
                 <div>
-                    <p>Jackson Adrita</p>
+                    <p>{user?.name}</p>
                 </div>
             </td>
 
             <td className=''>
                 <div>
-                    <p>farabisayed6099@gmail.com</p>
+                    <p>{user?.email}</p>
                 </div>
             </td>
 

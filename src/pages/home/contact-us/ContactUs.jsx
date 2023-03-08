@@ -1,12 +1,17 @@
 import React from 'react';
+import './contactUs.css'
 
 const ContactUs = () => {
     return (
-        <div className='py-12 bg-neutral-300'>
-            <div className='text-center'>
+        <div className='py-12 bg-neutral-300 contact-section-bg'
+            data-aos="fade-up"
+            data-aos-anchor-placement="center-bottom"
+            data-aos-duration="1500"
+        >
+            <div className='text-center text-white'>
                 <h4 className='text-3xl font-bold'><em>CONTACT ME</em></h4>
-                <p className='font-bold text-xl text-gray-500'>-----X-----</p>
-                <p className='text-xl text-gray-500 my-4'>Question not answer yet? I am here to help!</p>
+                <p className='font-bold text-xl text-gray-200'>-----X-----</p>
+                <p className='text-xl text-gray-200 my-4'>Question not answer yet? I am here to help!</p>
             </div>
             <div className='flex justify-center items-center'>
                 <form className="form-control w-1/2 md:2/3 py-8">

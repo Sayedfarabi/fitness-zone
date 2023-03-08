@@ -1,18 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { DatabaseContext } from '../../../Root';
 
-const CategoryItem = ({ category, setBgCategory, bgCategory }) => {
-    // console.log(bgCategory);
+const CategoryItem = ({ category }) => {
+    const { products } = useContext(DatabaseContext);
+    const count = products?.filter(product => product?.categoryId === category?._id)
+    const location = useLocation()
+    const isSelected = `/pages/category/${category?._id}` === location?.pathname;
+    // console.log(location);
     return (
-        <li className={`${bgCategory === category?.name ? 'bg-red-500' : 'bg-black'} text-white w-full md:rounded-none md:pl-1`}>
+
+        <li className={`${isSelected && "bg-black text-white w-full rounded-sm"} md:pl-2`} >
             <Link to={`/pages/category/${category?._id}`}>
-                <button onClick={() => setBgCategory(category?.name)}>
-                    {category?.name} ({category?.counter})
+                <button>
+                    {category?.title} ({count.length})
                 </button>
             </Link>
-
         </li>
     );
 };
+
 
 export default CategoryItem;

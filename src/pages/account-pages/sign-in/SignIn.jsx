@@ -6,8 +6,9 @@ import Loading from '../../../component/loading/Loading';
 import { AuthContext } from '../../../context/AuthProvider';
 
 const SignIn = () => {
-    const { signInWithGoogle, loading, signIn } = useContext(AuthContext);
-    const [error, setError] = useState();
+    const { signInWithGoogle, loading, signIn, setLoading } = useContext(AuthContext);
+    const [error, setError] = useState("");
+    // console.log(error);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,23 +18,97 @@ const SignIn = () => {
         const { email, password } = data;
         signIn(email, password)
             .then(result => {
+                const user = result?.user;
+                const userEmail = {
+                    email: user?.email
+                }
                 setError("")
                 navigate(from)
                 toast.success(" user sign in successfully")
+                fetch("http://localhost:5000/getToken", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userEmail)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data?.success) {
+                            // console.log(data);
+                            const token = data?.token;
+
+                            localStorage.setItem("fitnessZone", token)
+                        } else {
+                            console.log(data);
+                            toast.error(data?.message)
+                        }
+                    })
             })
             .then(error => {
+                console.log("error");
+                setLoading(false)
                 setError(error?.message)
             })
     }
+
+
     const googleHandler = () => {
         signInWithGoogle()
             .then(result => {
+                // console.log(result);
+                const user = result?.user;
+                const userData = {
+                    name: user?.displayName,
+                    email: user?.email,
+                    image: user?.photoURL,
+                    userRole: "buyer",
+                    verified: false
+                }
+                const userEmail = {
+                    email: user?.email
+                }
                 setError("")
                 navigate(from)
-                console.log(result);
+                fetch("http://localhost:5000/addUser", {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data?.success) {
+                            // toast.success(data?.message)
+                            fetch("http://localhost:5000/getToken", {
+                                method: "POST",
+                                headers: {
+                                    "content-type": "application/json"
+                                },
+                                body: JSON.stringify(userEmail)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data?.success) {
+                                        // console.log(data);
+                                        const token = data?.token;
+                                        // toast.success(result?.message)
+                                        localStorage.setItem("fitnessZone", token)
+                                    } else {
+                                        console.log(data);
+                                        toast.error(data?.message)
+                                    }
+                                })
+                        } else {
+                            toast.error(data?.message)
+                        }
+                    })
             })
-            .catch(err => {
-                setError(err?.message)
+            .catch(error => {
+                setLoading(false)
+                console.log(error);
+                setError(error)
             })
     }
     if (loading) {
@@ -51,7 +126,9 @@ const SignIn = () => {
                             </div>
                             <form onSubmit={handleSubmit(submitHandler)} className="card-body">
                                 <div className="form-control">
-
+                                    <label className="label">
+                                        <span className="label-text">Email :</span>
+                                    </label>
                                     <input {...register("email", { required: "Email address is must be required" })} type="text" name='email' placeholder="email" className="input input-bordered" required />
                                     {
                                         errors?.email &&
@@ -59,8 +136,10 @@ const SignIn = () => {
                                     }
                                 </div>
                                 <div className="form-control">
-
-                                    <input {...register("password", { required: "Password is must be required" })} type="text" name='password' placeholder="password" className="input input-bordered" required />
+                                    <label className="label">
+                                        <span className="label-text">Password :</span>
+                                    </label>
+                                    <input {...register("password", { required: "Password is must be required" })} type="password" name='password' placeholder="password" className="input input-bordered" required />
                                     {
                                         errors?.password &&
                                         <p className='text-red-500'>{errors?.password?.message}</p>
