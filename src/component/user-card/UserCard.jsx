@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdVerifiedUser, MdDeleteForever } from 'react-icons/md';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, handleVerified, handleDelete }) => {
     return (
         <tr className='hover text-sm md:text-md'>
             <td>
@@ -31,14 +31,14 @@ const UserCard = ({ user }) => {
                 </div>
             </td>
 
-            <td className='text-lg md:text-xl'>
-                <button>
+            <td className={`text-lg md:text-xl ${user?.verified && "text-blue-500"}`}>
+                <button onClick={() => handleVerified(user?.email)}>
                     <MdVerifiedUser></MdVerifiedUser>
                 </button>
             </td>
 
             <td className='text-xl md:text-2xl text-red-600'>
-                <button>
+                <button onClick={() => handleDelete(user?.email)}>
                     <MdDeleteForever></MdDeleteForever>
                 </button>
             </td>

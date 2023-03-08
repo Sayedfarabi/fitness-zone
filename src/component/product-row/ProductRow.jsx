@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { MdPayments, MdPostAdd } from 'react-icons/md';
+import { AuthContext } from '../../context/AuthProvider';
 
-const ProductRow = ({ product, position }) => {
+
+const ProductRow = ({ product, position, deleteHandler, advertiseHandler, cartHandle }) => {
     const location = useLocation()
     const pathname = location.pathname;
     const serial = position + 1;
+    const { user } = useContext(AuthContext);
+
+    const data = {
+        userName: user?.displayName,
+        userEmail: user?.email,
+        productId: product?._id,
+        productName: product?.productName,
+        image: product?.image
+    }
+
 
     return (
         <tr className='hover text-sm md:text-md'>
@@ -40,16 +52,16 @@ const ProductRow = ({ product, position }) => {
 
             {
                 (pathname === "/pages/order-list") &&
-                <td className='text-lg md:text-xl'>
-                    <button className='btn btn-xs md:btn-sm bg-white hover:bg-yellow-500 text-green-500 font-semibold  hover:text-white'>
+                <td className='text-xl md:text-2xl text-green-600'>
+                    <button>
                         <MdPayments></MdPayments>
                     </button>
                 </td>
             }
             {
                 (pathname === "/pages/wish-list") &&
-                <td className='text-lg md:text-xl'>
-                    <button className='btn btn-xs bg-white hover:bg-red-500 hover:text-white md:btn-sm text-yellow-600 font-semibold'>
+                <td className='text-xl md:text-2xl text-lime-600'>
+                    <button onClick={() => cartHandle(data)}>
                         <BsFillCartCheckFill></BsFillCartCheckFill>
                     </button>
                 </td>
@@ -58,7 +70,10 @@ const ProductRow = ({ product, position }) => {
             {
                 (pathname === "/pages/product-list") &&
                 <td className='text-lg md:text-xl'>
-                    <button className='btn btn-xs bg-white hover:bg-red-500 hover:text-white md:btn-sm text-violet-600 font-semibold'>
+                    <button onClick={() => advertiseHandler(product?._id)}
+                        className='btn btn-xs bg-white hover:bg-red-500 hover:text-white md:btn-sm text-yellow-600 font-semibold'
+                        disabled={product?.advertisement && true}
+                    >
                         <MdPostAdd></MdPostAdd>
                     </button>
                 </td>
@@ -67,7 +82,7 @@ const ProductRow = ({ product, position }) => {
 
 
             <td className='text-xl md:text-2xl text-red-600'>
-                <button>
+                <button onClick={() => deleteHandler(product?._id)}>
                     <MdDeleteForever></MdDeleteForever>
                 </button>
             </td>

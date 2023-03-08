@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import ProductRow from '../../../component/product-row/ProductRow';
 import { AuthContext } from '../../../context/AuthProvider';
 import { DatabaseContext } from '../../../layout/Root';
@@ -8,6 +9,50 @@ const ProductList = () => {
     const { user } = useContext(AuthContext)
     const sellerProducts = products?.filter(product => product?.sellerEmail === user?.email);
     // console.log(sellerProducts);
+
+    const deleteHandler = (id) => {
+        fetch(`http://localhost:5000/deleteProduct?id=${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            }
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    toast.success(result?.message)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
+
+    const advertiseHandler = id => {
+        if (id) {
+            fetch(`http://localhost:5000/addAdvertisement?id=${id}`, {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                    authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+                }
+
+            })
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result);
+                    if (result?.success) {
+
+                        toast.success(result?.message)
+                    } else {
+                        toast.error(result.message)
+                    }
+
+                })
+        }
+    }
+
+
     return (
         <section>
             <section>
@@ -34,6 +79,8 @@ const ProductList = () => {
                                         key={product?._id}
                                         product={product}
                                         position={sellerProducts?.indexOf(product)}
+                                        deleteHandler={deleteHandler}
+                                        advertiseHandler={advertiseHandler}
                                     >
                                     </ProductRow>
                                 })

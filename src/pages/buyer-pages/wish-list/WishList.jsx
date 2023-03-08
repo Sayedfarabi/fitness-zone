@@ -1,7 +1,52 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import ProductRow from '../../../component/product-row/ProductRow';
+import { AuthContext } from '../../../context/AuthProvider';
+import { DatabaseContext } from '../../../layout/Root';
 
 const WishList = () => {
+    const { user } = useContext(AuthContext);
+    const { wishList } = useContext(DatabaseContext);
+
+    const wishProduct = wishList?.filter(data => data?.userEmail === user?.email);
+
+    const cartHandle = product => {
+        fetch("http://localhost:5000/addBookingList", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            },
+            body: JSON.stringify(product)
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                if (result?.success) {
+                    toast.success(`${product?.productName} added to booking list`)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
+
+    const deleteHandler = (id) => {
+        fetch(`http://localhost:5000/deleteWishProduct?id=${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            }
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    toast.success(result?.message)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
     return (
         <section>
             <section>
@@ -15,19 +60,25 @@ const WishList = () => {
                                 <th>Product Image</th>
                                 <th>Product Name</th>
                                 <th>In Stock</th>
-                                <th>Payment Status</th>
+                                <th>Order</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
 
                         <tbody className='text-center'>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
+                            {
+                                wishProduct &&
+                                wishProduct.map(data => {
+                                    return <ProductRow
+                                        key={data?._id}
+                                        product={data}
+                                        cartHandle={cartHandle}
+                                        deleteHandler={deleteHandler}
+                                        position={wishProduct.indexOf(data)}
+                                    >
+                                    </ProductRow>
+                                })
+                            }
 
 
                         </tbody>

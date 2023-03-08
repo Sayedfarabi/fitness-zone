@@ -1,10 +1,53 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import UserCard from '../../../component/user-card/UserCard';
 import { DatabaseContext } from '../../../layout/Root';
 
 const SellerUsers = () => {
     const { users } = useContext(DatabaseContext)
     const sellerUsers = users.filter(user => user?.userRole === "seller");
+
+    const handleDelete = email => {
+
+        fetch(`http://localhost:5000/deleteUser?email=${email}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            },
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.deletedCount > 0) {
+
+                    toast.success(`${email} user is deleted successfully`)
+                } else {
+                    toast.error(`${email} user is deleted failed`)
+                }
+            })
+    }
+
+    const handleVerified = email => {
+        fetch(`http://localhost:5000/verifyUser?email=${email}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            },
+        })
+            .then(res => res.json())
+            .then(result => {
+
+                if (result.success) {
+
+                    toast.success(`${email} user verify successfully`)
+                } else {
+                    toast.error(`${result.message} ${email} user verified `)
+                }
+            })
+    }
+
+
     return (
         <section>
             <div className="overflow-x-auto py-4">
@@ -29,7 +72,10 @@ const SellerUsers = () => {
                             sellerUsers.map(user => {
                                 return <UserCard
                                     key={user?._id}
-                                    user={user}>
+                                    user={user}
+                                    handleVerified={handleVerified}
+                                    handleDelete={handleDelete}
+                                >
                                 </UserCard>
                             })
                         }

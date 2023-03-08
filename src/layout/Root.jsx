@@ -11,11 +11,15 @@ const Root = () => {
     const categories = data?.data?.categories;
     const users = data?.data?.users?.data;
     const products = data?.data?.products;
-    // console.log(products);
+    const bookings = data?.data?.bookings;
+    const wishList = data?.data?.wishList;
+    // console.log(bookings);
     const databaseData = {
         categories: categories,
         users: users,
-        products: products
+        products: products,
+        bookings: bookings,
+        wishList: wishList
     }
     return (
         <section>

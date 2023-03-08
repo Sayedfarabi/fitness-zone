@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import ProductRow from '../../../component/product-row/ProductRow';
+import { AuthContext } from '../../../context/AuthProvider';
+import { DatabaseContext } from '../../../layout/Root';
 
 const OrderList = () => {
+    const { user } = useContext(AuthContext)
+    const { bookings } = useContext(DatabaseContext);
+    const bookProduct = bookings?.filter(data => data?.userEmail === user?.email);
+
+    const deleteHandler = (id) => {
+        fetch(`http://localhost:5000/deleteBookingProduct?id=${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            }
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    toast.success(result?.message)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
+
+
     return (
         <section>
             <section>
@@ -21,13 +47,21 @@ const OrderList = () => {
                         </thead>
 
                         <tbody className='text-center'>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
-                            <ProductRow></ProductRow>
+
+                            {
+                                bookProduct &&
+                                bookProduct.map(data => {
+                                    return <ProductRow
+                                        key={data?._id}
+                                        product={data}
+                                        deleteHandler={deleteHandler}
+                                        position={bookProduct.indexOf(data)}>
+                                    </ProductRow>
+                                })
+                            }
+
+
+
 
 
                         </tbody>

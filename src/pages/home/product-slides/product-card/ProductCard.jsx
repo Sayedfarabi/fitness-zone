@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { BiCartDownload } from 'react-icons/bi';
 import { GiEternalLove } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,52 @@ import { AuthContext } from '../../../../context/AuthProvider';
 
 const ProductCard = ({ product }) => {
     const { user } = useContext(AuthContext)
+
+    const data = {
+        userName: user?.displayName,
+        userEmail: user?.email,
+        productId: product?._id,
+        productName: product?.productName,
+        image: product?.image
+    }
+
+    const cartHandle = () => {
+        fetch("http://localhost:5000/addBookingList", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result?.success) {
+                    toast.success(`${product?.productName} added to booking list`)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
+
+    const wishHandle = () => {
+        fetch("http://localhost:5000/addWishList", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result?.success) {
+                    toast.success(`${product?.productName} added to wish list`)
+                } else {
+                    toast.error(result?.message)
+                }
+            })
+    }
     return (
 
 
@@ -48,9 +95,11 @@ const ProductCard = ({ product }) => {
                     {
                         user?.uid &&
                         <div className='w-full'>
-                            <button className=' btn btn-sm bg-yellow-500 hover:bg-red-500 text-2xl capitalize text-black hover:text-white mx-4'><GiEternalLove></GiEternalLove></button>
+                            <button onClick={() => wishHandle(product)}
+                                className=' btn btn-sm bg-yellow-500 hover:bg-red-500 text-2xl capitalize text-black hover:text-white mx-4'><GiEternalLove></GiEternalLove></button>
 
-                            <button className=' btn btn-sm bg-lime-400 hover:bg-red-500  text-2xl capitalize text-black hover:text-white  mx-4'><BiCartDownload></BiCartDownload></button>
+                            <button onClick={() => cartHandle(product)}
+                                className=' btn btn-sm bg-lime-400 hover:bg-red-500  text-2xl capitalize text-black hover:text-white  mx-4'><BiCartDownload></BiCartDownload></button>
                         </div>
                     }
                     <Link to={`/pages/product/${product?._id}`}>

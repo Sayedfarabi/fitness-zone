@@ -10,11 +10,11 @@ export const dataLoadToDatabase = async () => {
         const productsData = await fetch("http://localhost:5000/products")
         const products = await productsData.json()
 
-        // const bookingsData = await fetch("http://localhost:5000/bookings")
-        // const bookings = await bookingsData.json()
+        const bookingsData = await fetch("http://localhost:5000/bookingProducts")
+        const bookings = await bookingsData.json()
 
-        // const wishListData = await fetch("http://localhost:5000/wishList")
-        // const wishList = await wishListData.json()
+        const wishListData = await fetch("http://localhost:5000/wishProducts")
+        const wishList = await wishListData.json()
 
         // const databaseData = {
         //     categories,
@@ -29,7 +29,9 @@ export const dataLoadToDatabase = async () => {
             data: {
                 categories,
                 users,
-                products
+                products,
+                bookings,
+                wishList
             }
         }
         return data
@@ -40,7 +42,9 @@ export const dataLoadToDatabase = async () => {
             data: {
                 categories: [],
                 users: [],
-                products: []
+                products: [],
+                bookings: [],
+                wishList: []
             }
         }
         return data

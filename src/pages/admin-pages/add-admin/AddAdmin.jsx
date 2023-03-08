@@ -1,11 +1,26 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 const AddAdmin = () => {
     const { register, handleSubmit } = useForm();
 
     const submitHandler = data => {
-        console.log(data);
+        fetch(`http://localhost:5000/addAdmin?email=${data?.email}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+            }
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result?.success) {
+                    toast.success(result?.message)
+                } else {
+                    toast.error(result.message)
+                }
+            })
     }
 
     return (
@@ -23,7 +38,7 @@ const AddAdmin = () => {
                                     <label className="label w-full">
                                         <span className="label-text font-bold">New Admin Email:</span>
                                     </label>
-                                    <input {...register("newAdminEmail", { required: true })} type="email" name='newAdminEmail' placeholder="Enter new admin email" className="input input-bordered w-full" required />
+                                    <input {...register("email", { required: true })} type="email" name='email' placeholder="Enter new admin email" className="input input-bordered w-full" required />
                                 </div>
 
                                 <div className="form-control mt-6">
