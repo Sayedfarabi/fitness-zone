@@ -8,6 +8,7 @@ const Footer = () => {
             data-aos="fade-up"
             data-aos-anchor-placement="center-bottom"
             data-aos-duration="1500"
+            data-aos-delay="50"
         >
             <div>
                 <span className="footer-title">Services</span>

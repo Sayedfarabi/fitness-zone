@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import bgImage from './bg-image/contact_about_open_bg.png';
 import InfoSectionCard from './info-section-card/InfoSectionCard';
+import ScrollTrigger from 'react-scroll-trigger';
 import "./info-section.css"
 
+
 const InfoSection = () => {
+    const [animationStart, setAnimationStart] = useState(false)
     const infoCardData = [
         {
             _id: "infoCard01",
@@ -37,24 +40,27 @@ const InfoSection = () => {
         },
     ]
     return (
-        <section className=''>
-            <div className='info-section-bg min-h-[60vh] flex justify-center items-center'
-                data-aos="flip-left"
-                data-aos-duration="1000"
-            >
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-3 my-6 md:my-0'>
-                    {
-                        infoCardData &&
-                        infoCardData.map(data => {
-                            return <InfoSectionCard
-                                key={data?._id}
-                                data={data}>
-                            </InfoSectionCard>
-                        })
-                    }
+        <ScrollTrigger onEnter={() => setAnimationStart(true)} onExit={() => setAnimationStart(false)}>
+            <section className='py-12'>
+                <div className='info-section-bg min-h-[60vh] flex justify-center items-center'
+                    data-aos="flip-left"
+                    data-aos-duration="2000"
+                    data-aos-delay="50"
+                >
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-3 my-6 md:my-0'>
+                        {
+                            infoCardData &&
+                            infoCardData.map(data => {
+                                return <InfoSectionCard
+                                    key={data?._id}
+                                    data={data}>
+                                </InfoSectionCard>
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </ScrollTrigger>
     );
 };
 

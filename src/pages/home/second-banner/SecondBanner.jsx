@@ -11,6 +11,7 @@ const SecondBanner = () => {
                 <div className='relative  md:col-span-2 mx-auto mb-6'
                     data-aos="fade-right"
                     data-aos-duration="2000"
+                    data-aos-delay="50"
                 >
                     <Link to={"/"}>
                         <div className=' w-full'>

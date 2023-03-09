@@ -1,6 +1,8 @@
 import React from 'react';
 import Banner from './banner/Banner';
+import BlogSection from './blog-section/BlogSection';
 import ContactUs from './contact-us/ContactUs';
+import CounterSection from './counter-section/CounterSection';
 import DiscountSection from './discount-products/DiscountSection';
 import InfoSection from './info-section/InfoSection';
 import CategoriesSlider from './our-categories/CategoriesSlider';
@@ -29,10 +31,16 @@ const Home = () => {
                 <ProductsSection></ProductsSection>
             </section>
             <section>
+                <BlogSection></BlogSection>
+            </section>
+            <section>
                 <InfoSection></InfoSection>
             </section>
             <section>
                 <Testimonials></Testimonials>
+            </section>
+            <section>
+                <CounterSection></CounterSection>
             </section>
             <section>
                 <ContactUs></ContactUs>

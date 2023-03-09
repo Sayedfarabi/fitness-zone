@@ -10,6 +10,7 @@ const DiscountSection = () => {
                 <div className="card w-full bg-base-100 shadow-xl mx-auto"
                     data-aos="fade-right"
                     data-aos-duration="1500"
+                    data-aos-delay="50"
                 >
                     <Link to={"/"}>
                         <div className='hover:border-2 hover:border-white'>
