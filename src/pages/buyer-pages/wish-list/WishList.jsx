@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import Loading from '../../../component/loading/Loading';
 import ProductRow from '../../../component/product-row/ProductRow';
 import { AuthContext } from '../../../context/AuthProvider';
 import { DatabaseContext } from '../../../layout/Root';
 
 const WishList = () => {
     const { user } = useContext(AuthContext);
-    const { wishList } = useContext(DatabaseContext);
+    const { wishList, refetchWishList, isLoadingWishList, refetchBookings } = useContext(DatabaseContext);
 
     const wishProduct = wishList?.filter(data => data?.userEmail === user?.email);
 
     const cartHandle = product => {
-        fetch("http://localhost:5000/addBookingList", {
+        fetch("https://fitness-zone-server.vercel.app/addBookingList", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -23,6 +24,7 @@ const WishList = () => {
             .then(result => {
                 console.log(result);
                 if (result?.success) {
+                    refetchBookings()
                     toast.success(`${product?.productName} added to booking list`)
                 } else {
                     toast.error(result?.message)
@@ -31,7 +33,7 @@ const WishList = () => {
     }
 
     const deleteHandler = (id) => {
-        fetch(`http://localhost:5000/deleteWishProduct?id=${id}`, {
+        fetch(`https://fitness-zone-server.vercel.app/deleteWishProduct?id=${id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -41,11 +43,16 @@ const WishList = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.success) {
+                    refetchWishList()
                     toast.success(result?.message)
                 } else {
                     toast.error(result?.message)
                 }
             })
+    }
+
+    if (isLoadingWishList) {
+        return <Loading></Loading>
     }
     return (
         <section>

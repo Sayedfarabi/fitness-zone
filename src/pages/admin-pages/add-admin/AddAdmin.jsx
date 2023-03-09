@@ -6,7 +6,7 @@ const AddAdmin = () => {
     const { register, handleSubmit } = useForm();
 
     const submitHandler = data => {
-        fetch(`http://localhost:5000/addAdmin?email=${data?.email}`, {
+        fetch(`https://fitness-zone-server.vercel.app/addAdmin?email=${data?.email}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

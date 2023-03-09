@@ -4,9 +4,17 @@ import { BiCartDownload } from 'react-icons/bi';
 import { GiEternalLove } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../../context/AuthProvider';
+import { DatabaseContext } from '../../../../layout/Root';
 
 const ProductCard = ({ product }) => {
     const { user } = useContext(AuthContext)
+    const { refetchBookings, refetchWishList, wishList, bookings } = useContext(DatabaseContext);
+
+    const userEmail = user?.email;
+    const productId = product?._id;
+    const userHaveWishList = wishList.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
+    const userHaveBookings = bookings.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
+    // console.log(userHaveBookings);
 
     const data = {
         userName: user?.displayName,
@@ -17,7 +25,7 @@ const ProductCard = ({ product }) => {
     }
 
     const cartHandle = () => {
-        fetch("http://localhost:5000/addBookingList", {
+        fetch("https://fitness-zone-server.vercel.app/addBookingList", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -28,6 +36,7 @@ const ProductCard = ({ product }) => {
             .then(res => res.json())
             .then(result => {
                 if (result?.success) {
+                    refetchBookings()
                     toast.success(`${product?.productName} added to booking list`)
                 } else {
                     toast.error(result?.message)
@@ -36,7 +45,7 @@ const ProductCard = ({ product }) => {
     }
 
     const wishHandle = () => {
-        fetch("http://localhost:5000/addWishList", {
+        fetch("https://fitness-zone-server.vercel.app/addWishList", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -47,6 +56,7 @@ const ProductCard = ({ product }) => {
             .then(res => res.json())
             .then(result => {
                 if (result?.success) {
+                    refetchWishList()
                     toast.success(`${product?.productName} added to wish list`)
                 } else {
                     toast.error(result?.message)
@@ -96,10 +106,11 @@ const ProductCard = ({ product }) => {
                         user?.uid &&
                         <div className='w-full'>
                             <button onClick={() => wishHandle(product)}
-                                className=' btn btn-sm bg-yellow-500 hover:bg-red-500 text-2xl capitalize text-black hover:text-white mx-4'><GiEternalLove></GiEternalLove></button>
+                                className=' btn btn-sm bg-yellow-500 hover:bg-red-500 text-2xl capitalize text-black hover:text-white mx-4' disabled={userHaveWishList && true}><GiEternalLove></GiEternalLove></button>
 
                             <button onClick={() => cartHandle(product)}
-                                className=' btn btn-sm bg-lime-400 hover:bg-red-500  text-2xl capitalize text-black hover:text-white  mx-4'><BiCartDownload></BiCartDownload></button>
+                                className=' btn btn-sm bg-lime-400 hover:bg-red-500  text-2xl capitalize text-black hover:text-white  mx-4'
+                                disabled={userHaveBookings && true}><BiCartDownload></BiCartDownload></button>
                         </div>
                     }
                     <Link to={`/pages/product/${product?._id}`}>

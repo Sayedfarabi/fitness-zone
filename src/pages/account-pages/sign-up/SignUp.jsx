@@ -51,7 +51,7 @@ const SignUp = () => {
                             .then(result => {
                                 setError("")
                                 navigate(from)
-                                fetch("http://localhost:5000/addUser", {
+                                fetch("https://fitness-zone-server.vercel.app/addUser", {
                                     method: 'POST',
                                     headers: {
                                         'content-type': 'application/json',
@@ -61,7 +61,7 @@ const SignUp = () => {
                                     .then(res => res.json())
                                     .then(data => {
                                         if (data?.success) {
-                                            fetch("http://localhost:5000/getToken", {
+                                            fetch("https://fitness-zone-server.vercel.app/getToken", {
                                                 method: "POST",
                                                 headers: {
                                                     "content-type": "application/json"

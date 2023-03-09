@@ -25,7 +25,7 @@ const SignIn = () => {
                 setError("")
                 navigate(from)
                 toast.success(" user sign in successfully")
-                fetch("http://localhost:5000/getToken", {
+                fetch("https://fitness-zone-server.vercel.app/getToken", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -70,7 +70,7 @@ const SignIn = () => {
                 }
                 setError("")
                 navigate(from)
-                fetch("http://localhost:5000/addUser", {
+                fetch("https://fitness-zone-server.vercel.app/addUser", {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
@@ -81,7 +81,7 @@ const SignIn = () => {
                     .then(data => {
                         if (data?.success) {
                             // toast.success(data?.message)
-                            fetch("http://localhost:5000/getToken", {
+                            fetch("https://fitness-zone-server.vercel.app/getToken", {
                                 method: "POST",
                                 headers: {
                                     "content-type": "application/json"

@@ -4,7 +4,7 @@ import { DatabaseContext } from '../Root';
 
 const Footer = () => {
     const { categories } = useContext(DatabaseContext)
-    console.log(categories);
+    // console.log(categories);
     return (
 
         <footer className="footer p-10 bg-black text-gray-200"

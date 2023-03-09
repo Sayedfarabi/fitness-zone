@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import AdminRoute from "../admin-route/AdminRoute";
 import Main from "../layout/Main";
@@ -29,7 +30,7 @@ export const routes = createBrowserRouter([
         path: "/",
         errorElement: <ErrorPage></ErrorPage>,
         element: <Root></Root>,
-        loader: dataLoadToDatabase,
+        loader: async () => await fetch("https://fitness-zone-server.vercel.app/"),
         children: [
             {
                 path: "/",
@@ -95,12 +96,12 @@ export const routes = createBrowserRouter([
                     {
                         path: "/pages/category/:id",
                         element: <Products></Products>,
-                        loader: async ({ params }) => await fetch(`http://localhost:5000/category/${params.id}`)
+                        loader: async ({ params }) => await fetch(`https://fitness-zone-server.vercel.app/category/${params.id}`)
                     },
                     {
                         path: "/pages/product/:id",
                         element: <PrivateRoute><ProductDetails></ProductDetails></PrivateRoute>,
-                        loader: async ({ params }) => await fetch(`http://localhost:5000/product/${params.id}`, {
+                        loader: async ({ params }) => await fetch(`https://fitness-zone-server.vercel.app/product/${params.id}`, {
                             headers: {
                                 "content-type": "application/json",
                                 authorization: `bearer ${localStorage.getItem('fitnessZone')}`

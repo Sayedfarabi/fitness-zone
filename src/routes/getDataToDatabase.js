@@ -1,37 +1,20 @@
 
+
 export const dataLoadToDatabase = async () => {
     try {
-        const categoriesData = await fetch("http://localhost:5000/")
+
+
+
+        const categoriesData = await fetch("https://fitness-zone-server.vercel.app/")
         const categories = await categoriesData.json();
 
-        const usersData = await fetch("http://localhost:5000/users")
-        const users = await usersData.json()
 
-        const productsData = await fetch("http://localhost:5000/products")
-        const products = await productsData.json()
-
-        const bookingsData = await fetch("http://localhost:5000/bookingProducts")
-        const bookings = await bookingsData.json()
-
-        const wishListData = await fetch("http://localhost:5000/wishProducts")
-        const wishList = await wishListData.json()
-
-        // const databaseData = {
-        //     categories,
-        //     users,
-        //     // products,
-        //     // bookings,
-        //     // wishList
-        // }
 
         const data = {
             success: true,
             data: {
                 categories,
-                users,
-                products,
-                bookings,
-                wishList
+
             }
         }
         return data
@@ -42,9 +25,6 @@ export const dataLoadToDatabase = async () => {
             data: {
                 categories: [],
                 users: [],
-                products: [],
-                bookings: [],
-                wishList: []
             }
         }
         return data

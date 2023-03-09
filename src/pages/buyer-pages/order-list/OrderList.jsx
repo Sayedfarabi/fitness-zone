@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import Loading from '../../../component/loading/Loading';
 import ProductRow from '../../../component/product-row/ProductRow';
 import { AuthContext } from '../../../context/AuthProvider';
 import { DatabaseContext } from '../../../layout/Root';
 
 const OrderList = () => {
     const { user } = useContext(AuthContext)
-    const { bookings } = useContext(DatabaseContext);
+    const { bookings, refetchBookings, isLoadingBookings } = useContext(DatabaseContext);
     const bookProduct = bookings?.filter(data => data?.userEmail === user?.email);
 
     const deleteHandler = (id) => {
-        fetch(`http://localhost:5000/deleteBookingProduct?id=${id}`, {
+        fetch(`https://fitness-zone-server.vercel.app/deleteBookingProduct?id=${id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -20,6 +21,7 @@ const OrderList = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.success) {
+                    refetchBookings()
                     toast.success(result?.message)
                 } else {
                     toast.error(result?.message)
@@ -27,6 +29,9 @@ const OrderList = () => {
             })
     }
 
+    if (isLoadingBookings) {
+        return <Loading></Loading>
+    }
 
     return (
         <section>

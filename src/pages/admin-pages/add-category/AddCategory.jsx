@@ -22,7 +22,7 @@ const AddCategory = () => {
                 const imageUrl = result?.data?.url;
                 data.image = imageUrl;
                 console.log(data);
-                fetch("http://localhost:5000/addCategory", {
+                fetch("https://fitness-zone-server.vercel.app/addCategory", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",

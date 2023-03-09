@@ -5,13 +5,13 @@ import { AuthContext } from '../../../context/AuthProvider';
 import { DatabaseContext } from '../../../layout/Root';
 
 const ProductList = () => {
-    const { products } = useContext(DatabaseContext);
+    const { products, refetchProducts } = useContext(DatabaseContext);
     const { user } = useContext(AuthContext)
     const sellerProducts = products?.filter(product => product?.sellerEmail === user?.email);
     // console.log(sellerProducts);
 
     const deleteHandler = (id) => {
-        fetch(`http://localhost:5000/deleteProduct?id=${id}`, {
+        fetch(`https://fitness-zone-server.vercel.app/deleteProduct?id=${id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -21,6 +21,7 @@ const ProductList = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.success) {
+                    refetchProducts()
                     toast.success(result?.message)
                 } else {
                     toast.error(result?.message)
@@ -30,7 +31,7 @@ const ProductList = () => {
 
     const advertiseHandler = id => {
         if (id) {
-            fetch(`http://localhost:5000/addAdvertisement?id=${id}`, {
+            fetch(`https://fitness-zone-server.vercel.app/addAdvertisement?id=${id}`, {
                 method: "PATCH",
                 headers: {
                     "content-type": "application/json",
@@ -42,7 +43,7 @@ const ProductList = () => {
                 .then(result => {
                     console.log(result);
                     if (result?.success) {
-
+                        refetchProducts()
                         toast.success(result?.message)
                     } else {
                         toast.error(result.message)

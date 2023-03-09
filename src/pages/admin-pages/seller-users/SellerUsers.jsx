@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import Loading from '../../../component/loading/Loading';
 import UserCard from '../../../component/user-card/UserCard';
 import { DatabaseContext } from '../../../layout/Root';
 
 const SellerUsers = () => {
-    const { users } = useContext(DatabaseContext)
+    const { users, refetchUsers, isLoadingUsers } = useContext(DatabaseContext)
     const sellerUsers = users.filter(user => user?.userRole === "seller");
 
     const handleDelete = email => {
 
-        fetch(`http://localhost:5000/deleteUser?email=${email}`, {
+        fetch(`https://fitness-zone-server.vercel.app/deleteUser?email=${email}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -19,7 +20,7 @@ const SellerUsers = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.deletedCount > 0) {
-
+                    refetchUsers()
                     toast.success(`${email} user is deleted successfully`)
                 } else {
                     toast.error(`${email} user is deleted failed`)
@@ -28,7 +29,7 @@ const SellerUsers = () => {
     }
 
     const handleVerified = email => {
-        fetch(`http://localhost:5000/verifyUser?email=${email}`, {
+        fetch(`https://fitness-zone-server.vercel.app/verifyUser?email=${email}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
@@ -39,7 +40,7 @@ const SellerUsers = () => {
             .then(result => {
 
                 if (result.success) {
-
+                    refetchUsers()
                     toast.success(`${email} user verify successfully`)
                 } else {
                     toast.error(`${result.message} ${email} user verified `)
@@ -47,6 +48,9 @@ const SellerUsers = () => {
             })
     }
 
+    if (isLoadingUsers) {
+        return <Loading></Loading>
+    }
 
     return (
         <section>

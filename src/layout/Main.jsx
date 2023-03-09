@@ -11,7 +11,7 @@ const Main = () => {
     const { user } = useContext(AuthContext)
     const { users } = useContext(DatabaseContext)
     const databaseUser = users?.find(DbUser => DbUser?.email === user?.email)
-    // console.log(databaseUser);
+
     return (
         <section>
             <div className='text-2xl flex-none md:flex'>

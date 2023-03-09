@@ -6,7 +6,7 @@ import { AuthContext } from '../../../context/AuthProvider';
 import { DatabaseContext } from '../../../layout/Root';
 
 const AddProduct = () => {
-    const { categories } = useContext(DatabaseContext)
+    const { categories, refetchProducts } = useContext(DatabaseContext)
     const { user } = useContext(AuthContext);
     const [error, setError] = useState()
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -36,7 +36,7 @@ const AddProduct = () => {
 
                 // console.log(data);
 
-                fetch("http://localhost:5000/addProduct", {
+                fetch("https://fitness-zone-server.vercel.app/addProduct", {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
@@ -48,6 +48,7 @@ const AddProduct = () => {
                     .then(data => {
                         // console.log(data)
                         if (data?.success) {
+                            refetchProducts()
                             navigate("/pages/product-list")
                             toast.success(data.message);
                         } else {
