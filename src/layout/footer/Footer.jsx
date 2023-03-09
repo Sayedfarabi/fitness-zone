@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { DatabaseContext } from '../Root';
 
 const Footer = () => {
+    const { categories } = useContext(DatabaseContext)
+    console.log(categories);
     return (
 
         <footer className="footer p-10 bg-black text-gray-200"
@@ -11,18 +14,18 @@ const Footer = () => {
             data-aos-delay="50"
         >
             <div>
-                <span className="footer-title">Services</span>
-                <Link to={""} className="link link-hover">Branding</Link>
-                <Link to={""} className="link link-hover">Design</Link>
-                <Link to={""} className="link link-hover">Marketing</Link>
-                <Link to={""} className="link link-hover">Advertisement</Link>
+                <span className="footer-title">Categories</span>
+
+                {categories &&
+                    categories.map(data => {
+                        return <Link to={`/pages/category/${data?._id}`} className="link link-hover">{data?.title}</Link>
+                    })}
+
             </div>
             <div>
                 <span className="footer-title">Company</span>
                 <Link to={""} className="link link-hover">About us</Link>
                 <Link to={""} className="link link-hover">Contact</Link>
-                <Link to={""} className="link link-hover">Jobs</Link>
-                <Link to={""} className="link link-hover">Press kit</Link>
             </div>
             <div>
                 <span className="footer-title">Social</span>
@@ -31,6 +34,12 @@ const Footer = () => {
                     <a className='hover:text-red-600' href='https://youtube.com/' target={"_blank"}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
                     <a className='hover:text-blue-600' href='https://facebook.com/' target={"_blank"}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
                 </div>
+            </div>
+
+            <div>
+                <Link to={"/"} className="hidden md:inline-block normal-case text-xl p-2  text-white  font-semibold">
+                    <em >Fitness<span className='text-red-500'>Zone</span></em>
+                </Link>
             </div>
         </footer>
 
