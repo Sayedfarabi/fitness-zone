@@ -99,7 +99,7 @@ const SignUp = () => {
         return <Loading></Loading>
     }
     return (
-        <div className="hero bg-base-200 py-16">
+        <div className="hero bg-base-200 py-4 md:py-12">
             <div className="hero-content flex-col">
                 <h3 className='text-center text-3xl mb-8 font-semibold border-b-2 border-red-500 py-2'><em>Sign Up Now</em></h3>
                 <div className="card flex-shrink-0 w-80 md:w-96  shadow-2xl bg-base-100">

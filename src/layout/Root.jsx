@@ -9,6 +9,7 @@ export const DatabaseContext = createContext();
 const Root = () => {
     const data = useLoaderData()
 
+
     const { data: products = [], isLoading: isLoadingProducts, refetch: refetchProducts } = useQuery({
         queryKey: ["/products"],
         queryFn: async () => {
@@ -64,7 +65,7 @@ const Root = () => {
 
     })
 
-    console.log(data);
+    // console.log(data);
     const users = usersData?.data;
 
     const databaseData = {
@@ -88,7 +89,7 @@ const Root = () => {
                 <section>
                     <Navbar></Navbar>
                 </section>
-                <section className='min-h-[80vh] bg-slate-200'>
+                <section className='min-h-[100vh] bg-slate-200'>
                     <Outlet></Outlet>
                 </section>
                 <Footer></Footer>

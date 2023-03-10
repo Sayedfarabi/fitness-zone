@@ -115,10 +115,10 @@ const SignIn = () => {
         return <Loading></Loading>
     }
     return (
-        <div className="hero py-20 bg-base-200">
+        <div className="hero py-4 md:py-12 bg-base-200 w-full">
             <div className="hero-content flex-col">
                 <h3 className='text-center text-3xl mb-8 font-semibold border-b-2 border-red-500 pb-2 '><em>Sign In Now</em></h3>
-                <div className="card flex-shrink-0 w-80 md:w-96 shadow-2xl bg-base-100 pt-8">
+                <div className=" flex-shrink-0 w-full shadow-2xl bg-base-100 pt-8">
                     <div className="flex flex-col w-full border-opacity-50">
                         <div className="grid h-full card rounded-box place-items-center">
                             <div className='text-center text-red-500 pt-4'>

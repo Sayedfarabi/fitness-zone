@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { MdPayments, MdPostAdd } from 'react-icons/md';
 import { AuthContext } from '../../context/AuthProvider';
@@ -53,9 +53,11 @@ const ProductRow = ({ product, position, deleteHandler, advertiseHandler, cartHa
             {
                 (pathname === "/pages/order-list") &&
                 <td className='text-xl md:text-2xl text-green-600'>
-                    <button>
-                        <MdPayments></MdPayments>
-                    </button>
+                    <Link to={`/pages/payment/${product?.productId}`}>
+                        <button>
+                            <MdPayments></MdPayments>
+                        </button>
+                    </Link>
                 </td>
             }
             {

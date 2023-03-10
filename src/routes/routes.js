@@ -18,6 +18,7 @@ import Products from "../pages/category-pages/Products";
 import ContactUsPage from "../pages/contact-us/ContactUsPage";
 import ErrorPage from "../pages/error-page/ErrorPage";
 import Home from "../pages/home/Home";
+import PaymentPage from "../pages/payment-page/PaymentPage";
 import AddProduct from "../pages/seller-pages/add-product/AddProduct";
 import ProductList from "../pages/seller-pages/product-list/ProductList";
 import WelcomePage from "../pages/welcome-page/WelcomePage";
@@ -123,7 +124,17 @@ export const routes = createBrowserRouter([
                     {
                         path: "/pages/product-list",
                         element: <PrivateRoute><ProductList></ProductList></PrivateRoute>
-                    }
+                    },
+                    {
+                        path: "/pages/payment/:id",
+                        element: <PrivateRoute><PaymentPage></PaymentPage></PrivateRoute>,
+                        loader: async ({ params }) => await fetch(`https://fitness-zone-server.vercel.app/payment/${params.id}`, {
+                            headers: {
+                                "content-type": "application/json",
+                                authorization: `bearer ${localStorage.getItem('fitnessZone')}`
+                            }
+                        })
+                    },
 
                 ]
             },

@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { BiCartDownload } from 'react-icons/bi';
 import { GiEternalLove } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../context/AuthProvider';
 import { DatabaseContext } from '../../../../layout/Root';
 
 const ProductCard = ({ product }) => {
     const { user } = useContext(AuthContext)
     const { refetchBookings, refetchWishList, wishList, bookings } = useContext(DatabaseContext);
-
+    const navigate = useNavigate()
     const userEmail = user?.email;
     const productId = product?._id;
     const userHaveWishList = wishList.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
@@ -21,7 +21,8 @@ const ProductCard = ({ product }) => {
         userEmail: user?.email,
         productId: product?._id,
         productName: product?.productName,
-        image: product?.image
+        image: product?.image,
+        productPrice: product?.resalePrice
     }
 
     const cartHandle = () => {
@@ -37,6 +38,7 @@ const ProductCard = ({ product }) => {
             .then(result => {
                 if (result?.success) {
                     refetchBookings()
+                    navigate("/pages/order-list")
                     toast.success(`${product?.productName} added to booking list`)
                 } else {
                     toast.error(result?.message)
@@ -57,6 +59,7 @@ const ProductCard = ({ product }) => {
             .then(result => {
                 if (result?.success) {
                     refetchWishList()
+                    navigate("/pages/wish-list")
                     toast.success(`${product?.productName} added to wish list`)
                 } else {
                     toast.error(result?.message)

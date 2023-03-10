@@ -15,28 +15,30 @@ const Main = () => {
     return (
         <section>
             <div className='text-2xl flex-none md:flex'>
-                <div className='border-2 w-full md:w-1/4 h-fit md:min-h-[80vh]'>
-                    <div>
-                        <CategorySidebar></CategorySidebar>
+                <div className=' w-full md:w-1/4 h-fit min-h-screen'>
+                    <div className=''>
+                        <div>
+                            <CategorySidebar></CategorySidebar>
+                        </div>
+                        {
+                            databaseUser?.userRole === "buyer" &&
+                            <div>
+                                <BuyerSidebar></BuyerSidebar>
+                            </div>
+                        }
+                        {
+                            databaseUser?.userRole === "seller" &&
+                            <div>
+                                <SellerSidebar></SellerSidebar>
+                            </div>
+                        }
+                        {
+                            databaseUser?.userRole === "admin" &&
+                            <div>
+                                <AdminSidebar></AdminSidebar>
+                            </div>
+                        }
                     </div>
-                    {
-                        databaseUser?.userRole === "buyer" &&
-                        <div>
-                            <BuyerSidebar></BuyerSidebar>
-                        </div>
-                    }
-                    {
-                        databaseUser?.userRole === "seller" &&
-                        <div>
-                            <SellerSidebar></SellerSidebar>
-                        </div>
-                    }
-                    {
-                        databaseUser?.userRole === "admin" &&
-                        <div>
-                            <AdminSidebar></AdminSidebar>
-                        </div>
-                    }
                 </div>
                 <div className='border-2 bg-white w-full min-h-screen '>
                     <Outlet></Outlet>
