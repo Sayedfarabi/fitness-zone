@@ -15,8 +15,8 @@ const Main = () => {
     return (
         <section>
             <div className='text-2xl flex-none md:flex'>
-                <div className=' w-full md:w-1/4 h-fit min-h-screen'>
-                    <div className=''>
+                <div className=' w-full md:w-1/4 min-h-fit md:min-h-screen'>
+                    <div className='py-4 md:py-0'>
                         <div>
                             <CategorySidebar></CategorySidebar>
                         </div>

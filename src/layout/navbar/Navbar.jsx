@@ -26,12 +26,12 @@ const Navbar = () => {
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-80">
-                            <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/"}>HOME</Link></li>
-                            <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/pages"}>PAGES</Link></li>
-                            {/* <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/blog"}>BLOG</Link></li> */}
-                            <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/about-us"}>ABOUT US</Link></li>
-                            <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/contact-us"}>CONTACT US</Link></li>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-80 text-black">
+                            <li className='hover:bg-white  hover:text-red-600 font-semibold'><Link to={"/"}>HOME</Link></li>
+                            <li className='hover:bg-white  hover:text-red-600 font-semibold'><Link to={"/pages"}>PAGES</Link></li>
+
+                            <li className='hover:bg-white  hover:text-red-600 font-semibold'><Link to={"/about-us"}>ABOUT US</Link></li>
+                            <li className='hover:bg-white  hover:text-red-600 font-semibold'><Link to={"/contact-us"}>CONTACT US</Link></li>
                         </ul>
                     </div>
                     <Link to={"/"} className="hidden md:inline-block normal-case text-xl p-2  text-white  font-semibold">
@@ -42,7 +42,6 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1">
                         <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/"}>HOME</Link></li>
                         <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/pages"}>PAGES</Link></li>
-                        {/* <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/blog"}>BLOG</Link></li> */}
                         <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/about-us"}>ABOUT US</Link></li>
                         <li className='hover:bg-white text-white hover:text-red-600 font-semibold'><Link to={"/contact-us"}>CONTACT US</Link></li>
                     </ul>

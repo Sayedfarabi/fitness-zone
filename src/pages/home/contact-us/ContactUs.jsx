@@ -16,7 +16,7 @@ const ContactUs = () => {
                     <p className='text-xl text-gray-200 my-4'>Question not answer yet? I am here to help!</p>
                 </div>
                 <div className='flex justify-center items-center'>
-                    <form className="form-control w-1/2 md:2/3 py-8">
+                    <form className="form-control mx-2 md:mx-0 w-full md:w-2/3 py-8">
                         <label className="mb-2">
                             <input type="text" name='user_name' placeholder="Enter your Name" className="input  border-red-500 w-full text-center border-b-2 border-t-0 border-r-0 border-l-0" defaultValue="" />
                         </label>

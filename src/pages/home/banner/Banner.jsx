@@ -14,11 +14,11 @@ const Banner = () => {
 
                     <div id="item1" className="carousel-item relative w-full ">
                         <div className='w-full carousel-image'>
-                            <img src={slide1} className="w-full h-[500px] md:h-[550px] lg:h-[600px]" alt='slider' />
+                            <img src={slide1} className="w-full h-[400px] md:h-[550px] lg:h-[600px]" alt='slider' />
                         </div>
 
 
-                        <div className='text-white absolute flex justify-start transform -translate-y-1/2 left-5 right-5 top-1/2 mt-6'>
+                        <div className='text-white absolute flex justify-start transform -translate-y-1/2 left-5 right-5 top-1/2'>
                             <div className='text-white ml-4 '>
                                 <p className='text-xl md:text-4xl font-bold'>
                                     REASONABLE PRICE
@@ -43,7 +43,7 @@ const Banner = () => {
 
                                 <div className='w-full my-4 md:my-8'>
                                     <button className='btn btn-md bg-red-500 text-white'>
-                                        <Link to="">Read More</Link>
+                                        <Link to="/pages">Read More</Link>
                                     </button>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@ const Banner = () => {
                     </div>
                     <div id="item2" className="carousel-item relative w-full">
                         <div className='w-full carousel-image'>
-                            <img src={slide2} className="w-full h-[500px] md:h-[550px] lg:h-[600px]" alt='' />
+                            <img src={slide2} className="w-full h-[400px] md:h-[550px] lg:h-[600px]" alt='' />
                         </div>
                         <div className='text-white absolute flex justify-start transform -translate-y-1/2 left-5 right-5 top-1/2 '>
                             <div className='text-white ml-4 '>
