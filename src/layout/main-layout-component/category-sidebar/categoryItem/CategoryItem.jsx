@@ -4,7 +4,8 @@ import { DatabaseContext } from '../../../Root';
 
 const CategoryItem = ({ category }) => {
     const { products } = useContext(DatabaseContext);
-    const count = products?.filter(product => product?.categoryId === category?._id)
+    const availableProducts = products.filter(product => product?.inStock === "available")
+    const count = availableProducts?.filter(product => product?.categoryId === category?._id)
     const location = useLocation()
     const isSelected = `/pages/category/${category?._id}` === location?.pathname;
     // console.log(location);

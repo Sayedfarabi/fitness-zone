@@ -12,8 +12,8 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate()
     const userEmail = user?.email;
     const productId = product?._id;
-    const userHaveWishList = wishList.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
-    const userHaveBookings = bookings.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
+    const userHaveWishList = wishList?.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
+    const userHaveBookings = bookings?.find(data => (data?.userEmail === userEmail) && (data?.productId === productId))
     // console.log(userHaveBookings);
 
     const data = {

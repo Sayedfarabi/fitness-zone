@@ -7,6 +7,7 @@ import { DatabaseContext } from '../../../layout/Root';
 
 const ProductsSection = () => {
     const { products } = useContext(DatabaseContext);
+    const availableProducts = products.filter(product => product?.inStock === "available")
 
     const settings = {
         dots: true,
@@ -54,7 +55,7 @@ const ProductsSection = () => {
             <div>
                 <Slider {...settings}>
                     {
-                        products.map(product => {
+                        availableProducts?.map(product => {
                             return <ProductCard
                                 key={product?._id}
                                 product={product}
