@@ -69,7 +69,7 @@ const ProductCard = ({ product }) => {
     return (
 
 
-        <div className="group relative item-center justify-center overflow-hidden cursor-default hover:shadow-xl hover:shadow-black/30 trans transition-shadow mx-auto">
+        <div className="group relative item-center justify-center overflow-hidden cursor-default hover:shadow-xl hover:shadow-black/30 trans transition-shadow mx-auto md:mx-2">
             <div className="h-96 w-72">
                 <img className='h-full w-full object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform duration-500' src={product?.image} alt="Product" />
             </div>

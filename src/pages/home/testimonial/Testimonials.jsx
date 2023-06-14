@@ -59,7 +59,7 @@ const Testimonials = () => {
         },
     ]
     return (
-        <div className=''>
+        <div>
             <div className="carousel w-full">
                 {
                     testimonialsData &&

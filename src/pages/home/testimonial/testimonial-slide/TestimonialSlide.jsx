@@ -3,7 +3,7 @@ import React from 'react';
 const TestimonialSlide = ({ data }) => {
     return (
 
-        <div id={data?._id} className="carousel-item relative w-full h-[400px] bg-base-200">
+        <div id={data?._id} className="carousel-item relative w-full h-[400px] ">
 
             <div className='text-center flex justify-center items-center w-full'>
                 <div className='mx-auto w-2/3'>
@@ -28,7 +28,7 @@ const TestimonialSlide = ({ data }) => {
             </div>
 
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href={`#${data?.previous}`} className="btn btn-circle">❮</a>
+                <a href={`#${data?.previousId}`} className="btn btn-circle">❮</a>
                 <a href={`#${data?.next}`} className="btn btn-circle">❯</a>
             </div>
         </div>

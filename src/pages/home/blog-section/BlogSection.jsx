@@ -10,7 +10,7 @@ const BlogSection = () => {
             <div>
                 <div className='text-center'>
                     <h1 className='text-2xl md:text-4xl text-bold'>Latest</h1>
-                    <p className='text-gray-400'>coming soon some items for the buyers and sellers of all our team</p>
+                    <p className='text-gray-400 my-4 md:my-8'>coming soon some items for the buyers and sellers of all our team</p>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-2 py-6'>
 

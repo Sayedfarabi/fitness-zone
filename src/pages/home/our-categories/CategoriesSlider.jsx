@@ -9,40 +9,40 @@ const CategoriesSlider = () => {
     const { categories } = useContext(DatabaseContext)
 
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
+    // const settings = {
+    //     dots: true,
+    //     infinite: true,
+    //     speed: 500,
+    //     slidesToShow: 4,
+    //     slidesToScroll: 4,
+    //     initialSlide: 0,
+    //     responsive: [
+    //         {
+    //             breakpoint: 1024,
+    //             settings: {
+    //                 slidesToShow: 3,
+    //                 slidesToScroll: 3,
+    //                 infinite: true,
+    //                 dots: true
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 600,
+    //             settings: {
+    //                 slidesToShow: 2,
+    //                 slidesToScroll: 2,
+    //                 initialSlide: 2
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 480,
+    //             settings: {
+    //                 slidesToShow: 1,
+    //                 slidesToScroll: 1
+    //             }
+    //         }
+    //     ]
+    // };
     return (
 
         <div className='py-12 md:pb-24 mx-12'>
@@ -51,19 +51,19 @@ const CategoriesSlider = () => {
                 <p className='text-xl text-gray-600 font-semibold'>-----X-----</p>
             </div>
             <div className='py-12'>
-                <div className=''>
-                    <Slider {...settings}>
-                        {
-                            categories &&
-                            categories.map(category => {
-                                return <CategoryCard
-                                    key={category?._id}
-                                    category={category}
-                                >
-                                </CategoryCard>
-                            })
-                        }
-                    </Slider>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+
+                    {
+                        categories &&
+                        categories.map(category => {
+                            return <CategoryCard
+                                key={category?._id}
+                                category={category}
+                            >
+                            </CategoryCard>
+                        })
+                    }
+
                 </div>
             </div>
         </div>

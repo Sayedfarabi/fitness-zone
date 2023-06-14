@@ -3,7 +3,7 @@ import './contactUs.css'
 
 const ContactUs = () => {
     return (
-        <section className=' bg-[#71b5f8] py-12'>
+        <section className='  py-12'>
             <div className=' contact-section-bg'
                 data-aos="fade-up"
                 data-aos-anchor-placement="center-bottom"
