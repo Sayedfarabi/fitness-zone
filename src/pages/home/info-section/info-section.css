@@ -4,3 +4,7 @@
     background-position: center;
     background-size: cover;
 }
+
+/* .info-section-bg::after {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%);
+} */

@@ -41,11 +41,9 @@ const InfoSection = () => {
     ]
     return (
         <ScrollTrigger onEnter={() => setAnimationStart(true)} onExit={() => setAnimationStart(false)}>
-            <section className='py-12'>
+            <section className='py-12 bg-gradient-to-r from-gray-200 to-gray-200'>
                 <div className='info-section-bg min-h-[60vh] flex justify-center items-center'
-                    data-aos="flip-left"
-                    data-aos-duration="2000"
-                    data-aos-delay="50"
+
                 >
                     <div className='grid grid-cols-1 md:grid-cols-3 gap-3 my-6 md:my-0'>
                         {

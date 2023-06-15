@@ -6,7 +6,7 @@ import banner2 from "../../../assets/second-banner/banner2.png";
 const SecondBanner = () => {
     return (
 
-        <div className='py-12 mx-auto'>
+        <div className='py-12 mx-4 md:mx-8'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4'>
                 <div className='relative  md:col-span-2 mx-auto mb-6'
                     data-aos="fade-right"
